@@ -6,12 +6,14 @@ const songsRoute = Router()
 
 const {getSongs,
 			getSongById,
-			deleteSongById}
+			deleteSongById,
+			addSong}
 = require('../controllers/songCtrl')
 
 songsRoute.get('/songs', getSongs)
 songsRoute.get('/songs/:id', getSongById)
 songsRoute.delete('/songs/:id', deleteSongById)
+songsRoute.post('/songs', addSong)
 
 module.exports = songsRoute
 

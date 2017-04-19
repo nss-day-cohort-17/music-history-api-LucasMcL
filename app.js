@@ -6,6 +6,7 @@ const bodyParser = require('body-parser')
 const router = require('./routes/')
 const {PORT} = require('./env-config')
 
+app.use(bodyParser.json())
 app.use(router)
 
 app.listen(PORT, function() {

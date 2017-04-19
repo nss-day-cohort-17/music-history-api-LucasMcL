@@ -34,6 +34,9 @@ const Song = bookshelf.Model.extend({
 	 */
 	deleteById: function(id) {
 		return this.forge({SongId: id}).destroy({require: true})
+	},
+	add: function(song) {
+		return this.forge(song).save({require: true})
 	}
 })
 

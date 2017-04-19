@@ -1,8 +1,6 @@
 'use strict'
 
-// <require a song model>
-// < use model methods for getting all songs and one song then send the response back with the data>
-// <stretch goal: methods for adding, deleting, editing a song>
+//TODO: make successful post request
 
 const Song = require('../models/song')
 
@@ -24,7 +22,7 @@ function getSongById(req, res, next) {
 	const id = params.id
 	Song.getById(id)
 		.then(song => res.status(200).json({song}))
-		.catch(error => res.status(404).json({error}))
+		.catch(error => res.status(404).json(error))
 }
 
 /**
@@ -35,8 +33,16 @@ function deleteSongById(req, res, next) {
 	const {params} = req
 	const id = params.id
 	Song.deleteById(id)
-		.then(song => res.status(200).json(song))
-		.catch(error => res.status(404).json({error}))
+		.then(song => res.status(200).json({song}))
+		.catch(error => res.status(404).json(error))
 }
 
-module.exports = {getSongs, getSongById, deleteSongById}
+function addSong(req, res, next) {
+	const song = req.body
+
+	Song.add(song)
+		.then(song => res.status(200).json({song}))
+		.catch(error => res.status(404).json(error))
+}
+
+module.exports = {getSongs, getSongById, deleteSongById, addSong}
