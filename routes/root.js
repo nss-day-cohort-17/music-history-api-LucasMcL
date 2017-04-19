@@ -1,16 +1,15 @@
 'use strict'
 
-const {Router} = require('express')
-const router = Router()
+const express = require('express')
+const Router = express.Router
+const baseRoute = Router()
+const {ROOT_PATH} = require('../env-config')
 
-const PORT = process.env.PORT || 5000
-const ROOT_PATH = `http://localhost:${PORT}`
-
-router.get('/', (req, res, next) => {
+baseRoute.get('/', (req, res, next) => {
 	res.status(200).json({
-		title: "Music History API",
-		v1: `${ROOT_PATH}/api/v1`
+		songs_url: `${ROOT_PATH}/songs`,
+		song_url: `${ROOT_PATH}/songs/{id}`
 	})
 })
 
-module.exports = {rootRoute: router, ROOT_PATH, PORT}
+module.exports = baseRoute

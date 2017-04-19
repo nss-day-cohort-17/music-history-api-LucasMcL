@@ -3,17 +3,10 @@
 const express = require('express')
 const app = express();
 const bodyParser = require('body-parser')
-require('dotenv').config()
-const {rootRoute, v1Routes, ROOT_PATH, PORT} = require('./routes/')
+const router = require('./routes/')
+const {PORT} = require('./env-config')
 
-
-app.locals.ROOT_PATH = ROOT_PATH
-app.locals.PORT = PORT
-
-
-app.use('/', rootRoute)
-app.use('/api/v1', v1Routes)
-// app.use('/api/v1', routes)
+app.use(router)
 
 app.listen(PORT, function() {
 	console.log(`listening on port ${PORT}`)

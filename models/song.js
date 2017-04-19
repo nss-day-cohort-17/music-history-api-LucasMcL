@@ -1,9 +1,10 @@
 'use strict'
 
-const {bookshelf} = require('../db/database')
+const {bookshelf} = require('../db/ormConfig')
 
 const Song = bookshelf.Model.extend({
-	tableName: 'Song'
+	tableName: 'Song',
+	idAttribute: 'SongId'
 }, {
 	/**
 	 * Fetches all songs from the database
@@ -13,20 +14,26 @@ const Song = bookshelf.Model.extend({
 	 */
 	getAll: function() {
 		return this.forge().fetchAll()
-			.then(rows => rows.toJSON())
-			.catch(err => err)
 	},
 	/**
 	 * Fetches single song with given id
-	 * @param  {integer} - id: id of song
+	 * @param  {integer} - req.params.id: id of song
 	 * @return {Promise}
 	 *         - Resolves with song as JSON
 	 *         - Rejects with err
 	 */
 	getById: function(id) {
-		return this.forge().where({SongId: id}).fetch()
-			.then(row => row.toJSON())
-			.catch(() => new Error(`Could not find song with id ${id}.`))
+		return this.forge({SongId: id}).fetch({require: true})
+	},
+	/**
+	 * Deletes single song with given id
+	 * @param  {integer} - req.params.id: id of given song
+	 * @return {Promise}
+	 *         - Resolves with empty object
+	 *         - Rejects with err
+	 */
+	deleteById: function(id) {
+		return this.forge({SongId: id}).destroy({require: true})
 	}
 })
 
