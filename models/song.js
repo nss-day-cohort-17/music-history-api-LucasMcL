@@ -35,8 +35,15 @@ const Song = bookshelf.Model.extend({
 	deleteById: function(id) {
 		return this.forge({SongId: id}).destroy({require: true})
 	},
+	/**
+	 * Adds a song to the database
+	 * @param {object} song - Object with keys equal to column names
+	 * @return {Promise}
+	 *         - Resolves with object you just sent
+	 *         - Rejects with err
+	 */
 	add: function(song) {
-		return this.forge(song).save({require: true})
+		return this.forge(song).save({}, {require: true})
 	}
 })
 
