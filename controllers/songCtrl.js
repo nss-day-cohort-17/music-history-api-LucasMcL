@@ -43,14 +43,10 @@ function deleteSongById(req, res, next) {
  */
 function addSong(req, res, next) {
 	const song = req.body
-	console.log(song)
 
 	Song.add(song)
 		.then(song => res.status(200).json({song}))
-		.catch(error => {
-			console.log(error)
-			res.status(404).json(error)
-		})
+		.catch(error => res.status(404).json(error))
 }
 
 module.exports = {getSongs, getSongById, deleteSongById, addSong}
